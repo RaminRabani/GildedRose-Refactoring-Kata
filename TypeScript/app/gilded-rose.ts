@@ -13,6 +13,9 @@ export class Item {
 export const SULFURAS = "Sulfuras, Hand of Ragnaros";
 export const AGED_BRIE = "Aged Brie";
 export const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+export const CONJURED = "Conjured";
+
+const conjuredRegex = new RegExp(CONJURED, "i");
 
 export class GildedRose {
   items: Array<Item>;
@@ -47,6 +50,10 @@ export class GildedRose {
       return this.updateBackstagePasses(item);
     } else {
       item.quality--;
+
+      if (conjuredRegex.test(item.name)) {
+        item.quality--;
+      }
     }
 
     return item;
@@ -74,6 +81,10 @@ export class GildedRose {
         break;
       default:
         item.quality--;
+    }
+
+    if (conjuredRegex.test(item.name)) {
+      item.quality--;
     }
 
     return item;
