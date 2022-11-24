@@ -115,12 +115,14 @@ describe("Gilded Rose", () => {
     expect(items[2].quality).toBe(50);
   });
 
-  it("should decrease quality of concert passes to 0 if sellIn is less than 0", () => {
-    const concertPassesItem = new Item(BACKSTAGE_PASSES, -1, 50);
-    const gildedRose = new GildedRose([concertPassesItem]);
+  it("should decrease quality of concert passes to 0 if sellIn is 0 or less", () => {
+    const concertPassesItem1 = new Item(BACKSTAGE_PASSES, 0, 50);
+    const concertPassesItem2 = new Item(BACKSTAGE_PASSES, -1, 50);
+    const gildedRose = new GildedRose([concertPassesItem1, concertPassesItem2]);
 
     const items = gildedRose.updateQuality();
 
     expect(items[0].quality).toBe(0);
+    expect(items[1].quality).toBe(0);
   });
 });
