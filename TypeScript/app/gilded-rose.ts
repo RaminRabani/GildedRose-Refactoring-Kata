@@ -47,10 +47,10 @@ export class GildedRose {
         if (item.name === AGED_BRIE) {
           item.quality++;
         } else {
-          if (item.name != BACKSTAGE_PASSES) {
-            item.quality--;
+          if (item.name === BACKSTAGE_PASSES) {
+            item.quality = 0;
           } else {
-            item.quality = item.quality - item.quality;
+            item.quality--;
           }
         }
       }
