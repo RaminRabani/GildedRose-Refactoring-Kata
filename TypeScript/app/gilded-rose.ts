@@ -29,21 +29,21 @@ export class GildedRose {
       ) {
         if (this.items[i].quality > 0) {
           if (this.items[i].name != SULFURAS) {
-            this.items[i].quality = this.items[i].quality - 1;
+            this.items[i].quality--;
           }
         }
       } else {
         if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
+          this.items[i].quality++;
           if (this.items[i].name == BACKSTAGE_PASSES) {
             if (this.items[i].sellIn < 11) {
               if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
+                this.items[i].quality++;
               }
             }
             if (this.items[i].sellIn < 6) {
               if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
+                this.items[i].quality++;
               }
             }
           }
@@ -51,7 +51,7 @@ export class GildedRose {
       }
 
       if (this.items[i].name != SULFURAS) {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
+        this.items[i].sellIn--;
       }
 
       if (this.items[i].sellIn < 0) {
@@ -59,7 +59,7 @@ export class GildedRose {
           if (this.items[i].name != BACKSTAGE_PASSES) {
             if (this.items[i].quality > 0) {
               if (this.items[i].name != SULFURAS) {
-                this.items[i].quality = this.items[i].quality - 1;
+                this.items[i].quality--;
               }
             }
           } else {
@@ -68,7 +68,7 @@ export class GildedRose {
           }
         } else {
           if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
+            this.items[i].quality++;
           }
         }
       }
