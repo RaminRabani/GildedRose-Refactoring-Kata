@@ -44,7 +44,7 @@ export class GildedRose {
     if (item.name === AGED_BRIE) {
       item.quality++;
     } else if (item.name === BACKSTAGE_PASSES) {
-      return this.updateActiveBackstagePasses(item);
+      return this.updateBackstagePasses(item);
     } else {
       item.quality--;
     }
@@ -52,7 +52,7 @@ export class GildedRose {
     return item;
   }
 
-  updateActiveBackstagePasses(item: Item): Item {
+  updateBackstagePasses(item: Item): Item {
     item.quality++;
     if (item.sellIn <= 10) {
       item.quality++;
