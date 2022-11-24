@@ -27,22 +27,9 @@ export class GildedRose {
         continue;
       }
 
-      if (item.name === AGED_BRIE) {
-        item.quality++;
-      } else if (item.name === BACKSTAGE_PASSES) {
-        item.quality++;
-        if (item.sellIn < 11) {
-          item.quality++;
-        }
-        if (item.sellIn < 6) {
-          item.quality++;
-        }
-      } else {
-        item.quality--;
-      }
+      item = this.updateQualityOfItem(item);
 
       item.sellIn--;
-
       if (item.sellIn < 0) {
         item = this.updateQualityOfExpiredItem(item);
       }
@@ -51,6 +38,30 @@ export class GildedRose {
     }
 
     return this.items;
+  }
+
+  updateQualityOfItem(item: Item): Item {
+    if (item.name === AGED_BRIE) {
+      item.quality++;
+    } else if (item.name === BACKSTAGE_PASSES) {
+      return this.updateActiveBackstagePasses(item);
+    } else {
+      item.quality--;
+    }
+
+    return item;
+  }
+
+  updateActiveBackstagePasses(item: Item): Item {
+    item.quality++;
+    if (item.sellIn < 11) {
+      item.quality++;
+    }
+    if (item.sellIn < 6) {
+      item.quality++;
+    }
+
+    return item;
   }
 
   updateQualityOfExpiredItem(item: Item): Item {
