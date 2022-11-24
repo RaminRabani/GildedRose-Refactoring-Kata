@@ -30,24 +30,24 @@ export class GildedRose {
         continue;
       }
 
-      item = this.updateQualityOfItem(item);
+      this.updateQualityOfItem(item);
 
       item.sellIn--;
       if (item.sellIn < 0) {
-        item = this.updateQualityOfExpiredItem(item);
+        this.updateQualityOfExpiredItem(item);
       }
 
-      item = this.adjustForQualityLimits(item);
+      this.adjustForQualityLimits(item);
     }
 
     return this.items;
   }
 
-  updateQualityOfItem(item: Item): Item {
+  updateQualityOfItem(item: Item): void {
     if (item.name === AGED_BRIE) {
       item.quality++;
     } else if (item.name === BACKSTAGE_PASSES) {
-      return this.updateBackstagePasses(item);
+      this.updateBackstagePasses(item);
     } else {
       item.quality--;
 
@@ -55,11 +55,9 @@ export class GildedRose {
         item.quality--;
       }
     }
-
-    return item;
   }
 
-  updateBackstagePasses(item: Item): Item {
+  updateBackstagePasses(item: Item): void {
     item.quality++;
     if (item.sellIn <= 10) {
       item.quality++;
@@ -67,11 +65,9 @@ export class GildedRose {
     if (item.sellIn <= 5) {
       item.quality++;
     }
-
-    return item;
   }
 
-  updateQualityOfExpiredItem(item: Item): Item {
+  updateQualityOfExpiredItem(item: Item): void {
     switch (item.name) {
       case AGED_BRIE:
         item.quality++;
@@ -86,18 +82,14 @@ export class GildedRose {
     if (conjuredRegex.test(item.name)) {
       item.quality--;
     }
-
-    return item;
   }
 
-  adjustForQualityLimits(item: Item): Item {
+  adjustForQualityLimits(item: Item): void {
     if (item.quality > 50) {
       item.quality = 50;
     }
     if (item.quality < 0) {
       item.quality = 0;
     }
-
-    return item;
   }
 }
