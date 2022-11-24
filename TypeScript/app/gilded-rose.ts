@@ -55,14 +55,20 @@ export class GildedRose {
         }
       }
 
-      if (item.quality > 50) {
-        item.quality = 50;
-      }
-      if (item.quality < 0) {
-        item.quality = 0;
-      }
+      item = this.adjustQualityForLimits(item);
     }
 
     return this.items;
+  }
+
+  adjustQualityForLimits(item: Item): Item {
+    if (item.quality > 50) {
+      item.quality = 50;
+    }
+    if (item.quality < 0) {
+      item.quality = 0;
+    }
+
+    return item;
   }
 }
