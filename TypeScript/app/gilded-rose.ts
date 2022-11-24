@@ -23,52 +23,50 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      if (
-        this.items[i].name != AGED_BRIE &&
-        this.items[i].name != BACKSTAGE_PASSES
-      ) {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != SULFURAS) {
-            this.items[i].quality--;
+      const item = this.items[i];
+
+      if (item.name != AGED_BRIE && item.name != BACKSTAGE_PASSES) {
+        if (item.quality > 0) {
+          if (item.name != SULFURAS) {
+            item.quality--;
           }
         }
       } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality++;
-          if (this.items[i].name == BACKSTAGE_PASSES) {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality++;
+        if (item.quality < 50) {
+          item.quality++;
+          if (item.name == BACKSTAGE_PASSES) {
+            if (item.sellIn < 11) {
+              if (item.quality < 50) {
+                item.quality++;
               }
             }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality++;
+            if (item.sellIn < 6) {
+              if (item.quality < 50) {
+                item.quality++;
               }
             }
           }
         }
       }
 
-      if (this.items[i].name != SULFURAS) {
-        this.items[i].sellIn--;
+      if (item.name != SULFURAS) {
+        item.sellIn--;
       }
 
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != AGED_BRIE) {
-          if (this.items[i].name != BACKSTAGE_PASSES) {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != SULFURAS) {
-                this.items[i].quality--;
+      if (item.sellIn < 0) {
+        if (item.name != AGED_BRIE) {
+          if (item.name != BACKSTAGE_PASSES) {
+            if (item.quality > 0) {
+              if (item.name != SULFURAS) {
+                item.quality--;
               }
             }
           } else {
-            this.items[i].quality =
-              this.items[i].quality - this.items[i].quality;
+            item.quality = item.quality - item.quality;
           }
         } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality++;
+          if (item.quality < 50) {
+            item.quality++;
           }
         }
       }
