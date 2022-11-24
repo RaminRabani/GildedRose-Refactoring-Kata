@@ -65,12 +65,15 @@ export class GildedRose {
   }
 
   updateQualityOfExpiredItem(item: Item): Item {
-    if (item.name === AGED_BRIE) {
-      item.quality++;
-    } else if (item.name === BACKSTAGE_PASSES) {
-      item.quality = 0;
-    } else {
-      item.quality--;
+    switch (item.name) {
+      case AGED_BRIE:
+        item.quality++;
+        break;
+      case BACKSTAGE_PASSES:
+        item.quality = 0;
+        break;
+      default:
+        item.quality--;
     }
 
     return item;
