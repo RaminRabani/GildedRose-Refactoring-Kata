@@ -54,10 +54,10 @@ export class GildedRose {
 
   updateActiveBackstagePasses(item: Item): Item {
     item.quality++;
-    if (item.sellIn < 11) {
+    if (item.sellIn <= 10) {
       item.quality++;
     }
-    if (item.sellIn < 6) {
+    if (item.sellIn <= 5) {
       item.quality++;
     }
 
