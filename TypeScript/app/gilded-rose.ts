@@ -27,18 +27,18 @@ export class GildedRose {
         continue;
       }
 
-      if (item.name != AGED_BRIE && item.name != BACKSTAGE_PASSES) {
-        item.quality--;
-      } else {
+      if (item.name === AGED_BRIE) {
         item.quality++;
-        if (item.name == BACKSTAGE_PASSES) {
-          if (item.sellIn < 11) {
-            item.quality++;
-          }
-          if (item.sellIn < 6) {
-            item.quality++;
-          }
+      } else if (item.name === BACKSTAGE_PASSES) {
+        item.quality++;
+        if (item.sellIn < 11) {
+          item.quality++;
         }
+        if (item.sellIn < 6) {
+          item.quality++;
+        }
+      } else {
+        item.quality--;
       }
 
       item.sellIn--;
