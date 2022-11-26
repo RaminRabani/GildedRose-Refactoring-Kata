@@ -26,9 +26,13 @@ export class GildedRose {
 
   updateQuality() {
     for (let item of this.items) {
+      if (item.name === SULFURAS) {
+        continue;
+      }
+
+      item.sellIn--;
+
       switch (true) {
-        case item.name === SULFURAS:
-          continue;
         case item.name === AGED_BRIE:
           this.updateAgedBrie(item);
           break;
@@ -49,48 +53,28 @@ export class GildedRose {
   }
 
   updateAgedBrie(item: Item): void {
-    item.quality++;
-
-    item.sellIn--;
-    if (item.sellIn < 0) {
-      item.quality++;
-    }
+    item.sellIn > 0 ? (item.quality += 1) : (item.quality += 2);
   }
 
   updateBackstagePasses(item: Item): void {
     item.quality++;
-    if (item.sellIn <= 10) {
+    if (item.sellIn < 10) {
       item.quality++;
     }
-    if (item.sellIn <= 5) {
+    if (item.sellIn < 5) {
       item.quality++;
     }
-
-    item.sellIn--;
-
     if (item.sellIn < 0) {
       item.quality = 0;
     }
   }
 
   updateConjured(item: Item): void {
-    item.quality--;
-    item.quality--;
-
-    item.sellIn--;
-    if (item.sellIn < 0) {
-      item.quality--;
-      item.quality--;
-    }
+    item.sellIn > 0 ? (item.quality -= 2) : (item.quality -= 4);
   }
 
   updateNormalItem(item: Item): void {
-    item.quality--;
-
-    item.sellIn--;
-    if (item.sellIn < 0) {
-      item.quality--;
-    }
+    item.sellIn > 0 ? (item.quality -= 1) : (item.quality -= 2);
   }
 
   adjustForQualityLimits(item: Item): void {
