@@ -26,15 +26,20 @@ export class GildedRose {
 
   updateQuality() {
     for (let item of this.items) {
-      if (item.name === SULFURAS) {
-        continue;
-      }
-
-      this.updateQualityOfItem(item);
-
-      item.sellIn--;
-      if (item.sellIn < 0) {
-        this.updateQualityOfExpiredItem(item);
+      switch (true) {
+        case item.name === SULFURAS:
+          continue;
+        case item.name === AGED_BRIE:
+          this.updateAgedBrie(item);
+          break;
+        case item.name === BACKSTAGE_PASSES:
+          this.updateBackstagePasses(item);
+          break;
+        case conjuredRegex.test(item.name):
+          this.updateConjured(item);
+          break;
+        default:
+          this.updateNormalItem(item);
       }
 
       this.adjustForQualityLimits(item);
@@ -43,17 +48,12 @@ export class GildedRose {
     return this.items;
   }
 
-  updateQualityOfItem(item: Item): void {
-    if (item.name === AGED_BRIE) {
-      item.quality++;
-    } else if (item.name === BACKSTAGE_PASSES) {
-      this.updateBackstagePasses(item);
-    } else {
-      item.quality--;
+  updateAgedBrie(item: Item): void {
+    item.quality++;
 
-      if (conjuredRegex.test(item.name)) {
-        item.quality--;
-      }
+    item.sellIn--;
+    if (item.sellIn < 0) {
+      item.quality++;
     }
   }
 
@@ -65,21 +65,30 @@ export class GildedRose {
     if (item.sellIn <= 5) {
       item.quality++;
     }
+
+    item.sellIn--;
+
+    if (item.sellIn < 0) {
+      item.quality = 0;
+    }
   }
 
-  updateQualityOfExpiredItem(item: Item): void {
-    switch (item.name) {
-      case AGED_BRIE:
-        item.quality++;
-        break;
-      case BACKSTAGE_PASSES:
-        item.quality = 0;
-        break;
-      default:
-        item.quality--;
-    }
+  updateConjured(item: Item): void {
+    item.quality--;
+    item.quality--;
 
-    if (conjuredRegex.test(item.name)) {
+    item.sellIn--;
+    if (item.sellIn < 0) {
+      item.quality--;
+      item.quality--;
+    }
+  }
+
+  updateNormalItem(item: Item): void {
+    item.quality--;
+
+    item.sellIn--;
+    if (item.sellIn < 0) {
       item.quality--;
     }
   }
